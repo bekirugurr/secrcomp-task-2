@@ -10,10 +10,10 @@ import Paper from "@mui/material/Paper";
 import { ProjectContext } from "../context/ProjectContext";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-//   [`&.${tableCellClasses.head}`]: {
-//     backgroundColor: theme.palette.common.black,
-//     color: theme.palette.common.white,
-//   },
+  //   [`&.${tableCellClasses.head}`]: {
+  //     backgroundColor: theme.palette.common.black,
+  //     color: theme.palette.common.white,
+  //   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
@@ -29,45 +29,58 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-
 const columnNames = ["Id", "Project Name", "Start Date", "End Date", "Status"];
 
 export default function CustomizedTables() {
-  const { allProjects, whichScreenIsShowing, deleteProject, updateProject } =
+  const { allProjects, whichScreenIsShowing } =
     React.useContext(ProjectContext);
-    const [projectsToDislay, setProjectsToDislay] = React.useState(allProjects)
+  const [projectsToDislay, setProjectsToDislay] = React.useState(allProjects);
 
+  React.useEffect(() => {
+    if (whichScreenIsShowing !== "All") {
+      const newArr = allProjects.filter(
+        (proj) => proj.status === whichScreenIsShowing
+      );
+      setProjectsToDislay(newArr);
+    }
+  }, [allProjects, whichScreenIsShowing]);
 
-    React.useEffect(() => { 
-
-        if(whichScreenIsShowing !== 'All'){
-            const newArr = allProjects.filter((proj)=>proj.status === whichScreenIsShowing)
-            setProjectsToDislay(newArr)
-        }
-     }, [allProjects, whichScreenIsShowing])
   return (
-    <TableContainer component={Paper} >
-      <Table sx={{ minWidth: 500, padding:'0 1rem0 1rem'}} aria-label="customized table">
-        <TableHead >
-          <TableRow >
-            {columnNames.map((colName)=>(
-            <StyledTableCell key={colName} sx={{backgroundColor:'gray', color:'white'}}>{colName}</StyledTableCell>
+    <TableContainer component={Paper}>
+      <Table
+        sx={{ minWidth: 500}}
+        aria-label="customized table"
+      >
+        <TableHead>
+          <TableRow>
+            {columnNames.map((colName) => (
+              <StyledTableCell
+                key={colName}
+                sx={{ backgroundColor: "gray", color: "white" }}
+              >
+                {colName}
+              </StyledTableCell>
             ))}
-
           </TableRow>
         </TableHead>
-        <TableBody >
+        <TableBody>
           {projectsToDislay.map((row) => (
-            <StyledTableRow key={row.id} >
+            <StyledTableRow key={row.id}>
+              <StyledTableCell>{row.id}</StyledTableCell>
+              <StyledTableCell>{row.project_name}</StyledTableCell>
               <StyledTableCell>
-                {row.id}
+                {new Date(row.start_date).toLocaleString().slice(0, 10)}
               </StyledTableCell>
               <StyledTableCell>
-                {row.project_name}
+                {new Date(row.end_date).toLocaleString().slice(0, 10)}
               </StyledTableCell>
-              <StyledTableCell >{new Date(row.start_date).toLocaleString().slice(0,10)}</StyledTableCell>
-              <StyledTableCell >{new Date(row.end_date).toLocaleString().slice(0,10)}</StyledTableCell>
-              <StyledTableCell>{row.status}</StyledTableCell>
+              <StyledTableCell>
+                {row.status === "Next"
+                  ? "Not Started"
+                  : row.status === "Ongoing"
+                  ? "In Progres"
+                  : "Completed"}
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

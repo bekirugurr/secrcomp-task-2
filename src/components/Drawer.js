@@ -173,7 +173,7 @@ export default function PersistentDrawerLeft() {
           </List>
         </Box>
       </Drawer>
-      <Main open={open} sx={{padding:'3rem 10rem'}}>
+      <Main open={open} sx={{padding:'3rem 7rem'}}>
         <DrawerHeader />
 
         {whichScreenIsShowing === 'Dashboard' ? <Dashboard/> : <Table/>}
