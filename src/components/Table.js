@@ -10,10 +10,6 @@ import Paper from "@mui/material/Paper";
 import { ProjectContext } from "../context/ProjectContext";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  //   [`&.${tableCellClasses.head}`]: {
-  //     backgroundColor: theme.palette.common.black,
-  //     color: theme.palette.common.white,
-  //   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
@@ -36,8 +32,12 @@ export default function CustomizedTables() {
     React.useContext(ProjectContext);
   const [projectsToDislay, setProjectsToDislay] = React.useState(allProjects);
 
+
+  //! Aşağıda whichScreenIsShowing state ine göre hangi tablonun display yapılacağını belirliyor. 
   React.useEffect(() => {
-    if (whichScreenIsShowing !== "All") {
+    if (whichScreenIsShowing === "All") {
+      setProjectsToDislay(allProjects);
+    } else {
       const newArr = allProjects.filter(
         (proj) => proj.status === whichScreenIsShowing
       );
@@ -47,10 +47,7 @@ export default function CustomizedTables() {
 
   return (
     <TableContainer component={Paper}>
-      <Table
-        sx={{ minWidth: 500}}
-        aria-label="customized table"
-      >
+      <Table sx={{ minWidth: 500 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             {columnNames.map((colName) => (

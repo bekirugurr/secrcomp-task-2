@@ -12,6 +12,7 @@ export const ProjectProvider = (props) => {
     setAllProjects([...allProjects, proj]);
   };
 
+  //! Case de istenmediği için alttaki iki func u kullanmadım. 
   const deleteProject = (projId) => {
     const projArr = allProjects.filter((item) => item.id !== projId);
     setAllProjects(projArr);

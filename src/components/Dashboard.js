@@ -24,14 +24,14 @@ export default function RowAndColumnSpacing() {
         columnSpacing={{ xs: 3, sm: 4, md: 5 }}
       >
         {["Ongoing", "Completed", "Next"].map((status) => (
-          <Grid item xs={6} key={status} sx={{gap:'3rem'}}>
+          <Grid item md={12} lg={6} key={status} sx={{ gap: "3rem" }}>
             <Item>
               <DashboardItem status={status} />
             </Item>
           </Grid>
         ))}
-        <Grid item xs={6}>
-          <Typography  variant="body2" >
+        <Grid item md={12} lg={6}>
+          <Typography variant="body2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut

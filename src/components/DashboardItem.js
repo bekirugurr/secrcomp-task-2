@@ -22,8 +22,8 @@ export default function DashboardItem({ status }) {
     <Box
       sx={{
         display: "flex",
-        padding: "1rem",
-        justifyContent: "center",
+        py: "0.5rem",
+        justifyContent: "space-evenly",
         alignItems: "center",
       }}
     >
@@ -33,6 +33,7 @@ export default function DashboardItem({ status }) {
           flexDirection: "column",
           alignItems: "start",
           gap: "1rem",
+          pl: "0.5rem",
         }}
       >
         <Typography variant="h6" noWrap component="div">
@@ -43,13 +44,13 @@ export default function DashboardItem({ status }) {
         </Typography>
       </Box>
       <Box>
-        <PieChart width={200} height={200}>
+        <PieChart width={180} height={180}>
           <Pie
             data={data}
-            cx={100}
-            cy={100}
+            cx={75}
+            cy={85}
             labelLine={false}
-            outerRadius={80}
+            outerRadius={70}
             fill="#8884d8"
             dataKey="value"
           >
